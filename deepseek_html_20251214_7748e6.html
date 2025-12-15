@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>TKS SRS&trade; - VIP PANEL</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap');
+        
+        :root {
+            --bg-color: #050505;
+            --accent-1: #FFD700;
+            --accent-2: #E91E63;
+            --text-light: #FFFFFF;
+            --error-color: #FF4444;
+            --success-color: #00FF99;
+            --danger-color: #FF3366;
+            --highlight-color: #FFD700;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(255, 215, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+        }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px var(--accent-2), 0 0 10px var(--accent-2); }
+            50% { box-shadow: 0 0 10px var(--accent-1), 0 0 20px var(--accent-1); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: var(--bg-color);
+            font-family: 'Roboto Mono', monospace;
+            color: var(--text-light);
+        }
+
+        iframe {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+        }
+
+        /* PREMIUM BOX */
+        .srs-box {
+            position: absolute;
+            width: 130px;
+            border-radius: 10px;
+            padding: 4px;
+            text-align: center;
+            z-index: 9999;
+            touch-action: none;
+            animation: fadeInUp 0.5s ease-out;
+            background:
+                linear-gradient(135deg, #111111 0%, #060606 100%) padding-box,
+                linear-gradient(135deg, #ffd700, #ff4e8a, #00f0ff) border-box;
+            border: 2px solid transparent;
+            box-shadow:
+                0 0 20px rgba(255,215,0,0.4),
+                0 0 35px rgba(233, 30, 99, 0.5),
+                inset 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 2px;
+            border: 1px solid var(--accent-2);
+            animation: pulse 1.5s infinite;
+        }
+
+        .header-text {
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+
+        .branding-main {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            color: var(--accent-1);
+            text-shadow: 0 0 5px var(--accent-1);
+            display: block;
+        }
+        .branding-sub {
+            font-size: 8px;
+            color: var(--accent-2);
+            text-shadow: 0 0 5px var(--accent-2);
+        }
+
+        input, select {
+            width: 95%;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 3px;
+            padding: 4px 0;
+            color: var(--text-light);
+            font-size: 9px;
+            margin-bottom: 5px;
+            box-shadow: inset 0 0 2px #000;
+        }
+
+        .btn-primary {
+            width: 95%;
+            padding: 5px 0;
+            font-size: 10px;
+            background: var(--accent-2);
+            color: var(--text-light);
+            border: 1px solid var(--accent-1);
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px var(--accent-2);
+            animation: glow 1.5s infinite alternate;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-1);
+            color: var(--bg-color);
+            box-shadow: 0 0 10px var(--accent-1), 0 0 20px var(--accent-1);
+        }
+        .btn-primary:disabled {
+            background: #555;
+            border-color: #777;
+            color: #aaa;
+            box-shadow: none;
+            animation: none;
+            cursor: not-allowed;
+        }
+
+        /* Dashboard mini size */
+        #dashboard {
+            width: 110px;
+            padding: 4px;
+            animation-delay: 0.2s;
+        }
+        #dashboard .logo {
+            width: 30px;
+            height: 30px;
+        }
+        #dashboard .header-text {
+            margin-bottom: 2px;
+        }
+        #dashboard .branding-main {
+            font-size: 10px;
+        }
+
+        .time-txt {
+            font-size: 7px;
+            color: #aaa;
+            margin-top: 2px;
+            margin-bottom: 1px;
+            letter-spacing: 0.5px;
+        }
+
+        .countdown {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 900;
+            margin: 1px 0;
+        }
+
+        /* Prediction result */
+        .result-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 900;
+            margin-top: 4px;
+            line-height: 1.2;
+            letter-spacing: 1px;
+            padding: 4px 2px;
+            border-radius: 3px;
+            border: 1px solid;
+        }
+        .txt-small {
+            background: rgba(0,255,153,0.15);
+            color: var(--success-color);
+            text-shadow: 0 0 6px var(--success-color);
+            border-color: var(--success-color);
+            box-shadow: 0 0 8px var(--success-color);
+        }
+        .txt-big {
+            background: rgba(255,51,102,0.15);
+            color: var(--danger-color);
+            text-shadow: 0 0 6px var(--danger-color);
+            border-color: var(--danger-color);
+            box-shadow: 0 0 8px var(--danger-color);
+        }
+    </style>
+</head>
+<body>
+    <iframe id="mainIframe" src="https://www.tigroclub.vip/#/register?invitationCode=46157134712"></iframe>
+    
+    <div class="srs-box" id="popup" style="top: 30%; left: 30%; cursor: grab;">
+        <img alt="SRS Logo" class="logo" src="logo.jpg"/>
+        <div class="header-text">
+            <span class="branding-main">
+                👑 KING FORIDUL
+            </span>
+            <span class="branding-sub">
+                𝐒𝐑𝐒&trade; 𝐕𝐈𝐏 𝐋𝐎𝐆𝐈𝐍
+            </span>
+        </div>
+        <select id="domainSelector" onchange="updateIframeDomain(this.value)">
+            <option selected="" value="https://dkwin0.com/#/register?invitationCode=42622104467">
+                dkwin0.com
+            </option>
+            <option value="https://www.dkwin1.com/#/register?invitationCode=42622104467">
+                dkwin1.com
+            </option>
+            <option value="https://www.dkwin10.com/#/register?invitationCode=42622104467">
+                dkwin10.com
+            </option>
+            <option value="https://www.dkwin11.com/#/register?invitationCode=42622104467">
+                dkwin11.com
+            </option>
+            <option value="https://www.dkwin12.com/#/register?invitationCode=42622104467">
+                dkwin12.com
+            </option>
+            <option value="https://www.dkwin13.com/#/register?invitationCode=42622104467">
+                dkwin13.com
+            </option>
+            <option value="https://www.dkwin14.com/#/register?invitationCode=42622104467">
+                dkwin14.com
+            </option>
+            <option value="https://www.dkwin15.com/#/register?invitationCode=42622104467">
+                dkwin15.com
+            </option>
+            <option value="https://www.dkwin16.com/#/register?invitationCode=42622104467">
+                dkwin16.com
+            </option>
+            <option value="https://www.dkwin17.com/#/register?invitationCode=42622104467">
+                dkwin17.com
+            </option>
+            <option value="https://www.dkwin18.com/#/register?invitationCode=42622104467">
+                dkwin18.com
+            </option>
+            <option value="https://www.dkwin19.com/#/register?invitationCode=42622104467">
+                dkwin19.com
+            </option>
+        </select>
+        <input id="pass" placeholder="PASSWORD" type="password"/>
+        <button class="btn-primary" id="loginBtn" onclick="checkPass()">
+            LOGIN
+        </button>
+    </div>
+    
+    <div class="srs-box" id="dashboard" style="display: none; top: 15%; left: 10%; cursor: grab;">
+        <img alt="SRS Logo" class="logo" src="logo.jpg"/>
+        <div class="header-text">
+            <span class="branding-main">
+                👑 KING F.
+            </span>
+            <span class="branding-sub">
+                𝐒𝐑𝐒&trade; 𝐏𝐑𝐄𝐃𝐈𝐂𝐓
+            </span>
+        </div>
+        <hr style="border-color: rgba(255,215,0,0.1); margin: 3px 0;"/>
+        <div class="time-txt">
+            TIME
+        </div>
+        <div class="countdown" id="liveTime" style="font-size:14px; color:#ddd; text-shadow:none; margin:0;">
+            16:04:01
+        </div>
+        <div class="time-txt" style="margin-top: 5px;">
+            COUNTDOWN
+        </div>
+        <div class="countdown" id="countdown" style="color: var(--highlight-color); text-shadow: 0 0 5px var(--highlight-color);">
+            29s
+        </div>
+        <div class="result-display txt-big" id="resultDisplay">
+            BIG
+            <span style="font-weight: normal; font-size: 12px;">
+                | 6, 8
+            </span>
+        </div>
+    </div>
+
+    <script>
+        // PERMANENT PASSWORD
+        const PERMANENT_PASSWORD = "KING1234"; // आप यहाँ अपना permanent password सेट करें
+        
+        // Make the boxes draggable
+        function makeDraggable(element) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            element.onmousedown = dragMouseDown;
+            
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+            
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+            }
+            
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+        
+        // Update iframe domain
+        function updateIframeDomain(url) {
+            document.getElementById('mainIframe').src = url;
+        }
+        
+        // Check password function
+        function checkPass() {
+            const passwordInput = document.getElementById('pass').value;
+            const loginBtn = document.getElementById('loginBtn');
+            
+            // Disable button while checking
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = "CHECKING...";
+            
+            // Simple validation
+            setTimeout(() => {
+                if (passwordInput === PERMANENT_PASSWORD) {
+                    // Password correct - show dashboard
+                    document.getElementById('popup').style.display = 'none';
+                    document.getElementById('dashboard').style.display = 'block';
+                    
+                    // Initialize dashboard functionality
+                    initDashboard();
+                } else {
+                    // Password incorrect
+                    alert("❌ ACCESS DENIED!\nInvalid Password");
+                    loginBtn.innerHTML = "LOGIN FAILED";
+                    loginBtn.style.backgroundColor = "var(--error-color)";
+                    
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        loginBtn.innerHTML = "LOGIN";
+                        loginBtn.style.backgroundColor = "";
+                        loginBtn.disabled = false;
+                        document.getElementById('pass').value = "";
+                    }, 2000);
+                }
+            }, 500);
+        }
+        
+        // Initialize dashboard functionality
+        function initDashboard() {
+            // Make dashboard draggable
+            makeDraggable(document.getElementById('dashboard'));
+            
+            // Update live time
+            function updateLiveTime() {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('en-US', { 
+                    hour12: false,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                document.getElementById('liveTime').textContent = timeString;
+            }
+            
+            // Update countdown
+            function updateCountdown() {
+                const countdownElement = document.getElementById('countdown');
+                let seconds = parseInt(countdownElement.textContent.replace('s', ''));
+                
+                if (seconds <= 0) {
+                    seconds = 30;
+                    // Generate random prediction
+                    const predictions = ["SMALL", "BIG"];
+                    const result = predictions[Math.floor(Math.random() * predictions.length)];
+                    const numbers = Math.floor(Math.random() * 5) + 1;
+                    
+                    document.getElementById('resultDisplay').className = 
+                        result === "SMALL" ? "result-display txt-small" : "result-display txt-big";
+                    document.getElementById('resultDisplay').innerHTML = 
+                        `${result}<span style="font-weight: normal; font-size: 12px;"> | ${numbers}, ${numbers + 2}</span>`;
+                } else {
+                    seconds--;
+                }
+                
+                countdownElement.textContent = `${seconds}s`;
+            }
+            
+            // Initialize time updates
+            updateLiveTime();
+            setInterval(updateLiveTime, 1000);
+            setInterval(updateCountdown, 1000);
+            
+            // Allow Enter key to trigger login
+            document.getElementById('pass').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkPass();
+                }
+            });
+        }
+        
+        // Make login popup draggable
+        window.onload = function() {
+            makeDraggable(document.getElementById('popup'));
+            
+            // Initialize dashboard if already logged in (from localStorage)
+            const isLoggedIn = localStorage.getItem('srsLoggedIn');
+            if (isLoggedIn === 'true') {
+                document.getElementById('popup').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                initDashboard();
+            }
+        };
+    </script>
+</body>
+</html>
